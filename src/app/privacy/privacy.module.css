@@ -1,0 +1,137 @@
+.privacyPage {
+    min-height: 100vh;
+    background: var(--surface);
+}
+
+.header {
+    text-align: center;
+    padding: var(--space-3xl) var(--space-xl) var(--space-2xl);
+    border-bottom: 1px solid var(--border);
+}
+
+.header h1 {
+    font-size: 2.5rem;
+    color: var(--primary);
+    margin-bottom: var(--space-sm);
+}
+
+.lastUpdated {
+    color: var(--text-muted);
+    font-size: 0.95rem;
+}
+
+.buttons {
+    display: flex;
+    justify-content: center;
+    gap: var(--space-md);
+    margin-top: var(--space-xl);
+    flex-wrap: wrap;
+}
+
+.content {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: var(--space-2xl) var(--space-xl);
+}
+
+.section {
+    margin-bottom: var(--space-2xl);
+}
+
+.section h2 {
+    color: var(--primary);
+    font-size: 1.5rem;
+    margin-bottom: var(--space-md);
+    padding-bottom: var(--space-sm);
+    border-bottom: 2px solid var(--primary-bg);
+}
+
+.section p {
+    color: var(--text-secondary);
+    margin-bottom: var(--space-md);
+    line-height: 1.8;
+}
+
+.section ul,
+.section ol {
+    margin-left: var(--space-xl);
+    margin-bottom: var(--space-md);
+}
+
+.section li {
+    color: var(--text-secondary);
+    margin-bottom: var(--space-sm);
+    line-height: 1.7;
+}
+
+.section li strong {
+    color: var(--text);
+}
+
+.section a {
+    color: var(--primary);
+    text-decoration: underline;
+    transition: opacity 0.2s;
+}
+
+.section a:hover {
+    opacity: 0.8;
+}
+
+.mono {
+    font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+    background: var(--background);
+    padding: 2px 6px;
+    border-radius: 4px;
+    font-size: 0.9em;
+}
+
+.dim {
+    color: var(--text-muted);
+    font-size: 0.95rem;
+    font-style: italic;
+}
+
+.highlight {
+    background: var(--primary-bg);
+    padding: var(--space-md);
+    border-radius: var(--radius-md);
+    border-left: 4px solid var(--primary);
+}
+
+.footer {
+    text-align: center;
+    padding: var(--space-xl);
+    border-top: 1px solid var(--border);
+    color: var(--text-muted);
+    font-size: 0.9rem;
+}
+
+.backLink {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-sm);
+    color: var(--primary);
+    font-weight: 600;
+    margin-bottom: var(--space-xl);
+    transition: opacity 0.2s;
+}
+
+.backLink:hover {
+    opacity: 0.8;
+}
+
+@media (max-width: 768px) {
+    .header h1 {
+        font-size: 1.75rem;
+    }
+
+    .section h2 {
+        font-size: 1.25rem;
+    }
+
+    .buttons {
+        flex-direction: column;
+        align-items: center;
+    }
+}
