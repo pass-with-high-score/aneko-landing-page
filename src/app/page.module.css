@@ -228,6 +228,80 @@
     display: block;
 }
 
+/* Reviews Section */
+.reviews {
+    padding: var(--space-3xl) 0;
+    background: var(--background);
+}
+
+.reviewGrid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: var(--space-lg);
+}
+
+.reviewCard {
+    background: var(--surface);
+    border-radius: var(--radius-lg);
+    padding: var(--space-xl);
+    border: 1px solid var(--border);
+}
+
+.reviewHeader {
+    display: flex;
+    align-items: center;
+    gap: var(--space-md);
+    margin-bottom: var(--space-md);
+}
+
+.reviewAvatar {
+    width: 40px;
+    height: 40px;
+    min-width: 40px;
+    min-height: 40px;
+    flex-shrink: 0;
+    background: var(--primary);
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 1rem;
+    aspect-ratio: 1;
+}
+
+.reviewName {
+    font-weight: 600;
+    color: var(--text);
+    font-size: 0.95rem;
+}
+
+.reviewDate {
+    color: var(--text-muted);
+    font-size: 0.8rem;
+}
+
+.reviewStars {
+    margin-left: auto;
+    color: #FBBF24;
+    font-size: 0.9rem;
+    letter-spacing: 1px;
+}
+
+.reviewText {
+    color: var(--text-secondary);
+    font-size: 0.95rem;
+    line-height: 1.6;
+    margin-bottom: var(--space-sm);
+}
+
+.reviewHelpful {
+    color: var(--text-muted);
+    font-size: 0.8rem;
+    margin-top: var(--space-sm);
+}
+
 /* GitHub Section */
 .github {
     padding: var(--space-3xl) 0;

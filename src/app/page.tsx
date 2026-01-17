@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Image from "next/image";
 import { motion } from "framer-motion";
 import styles from "./page.module.css";
@@ -19,11 +19,11 @@ import {
 } from "lucide-react";
 import { SiGoogleplay } from "react-icons/si";
 
-// GitHub Stats
-const GITHUB_STATS = {
-  aneko: { stars: 420, forks: 10, language: "Kotlin" },
-  skin: { stars: 231, forks: 4 }
-};
+// GitHub Stats type
+interface GitHubStats {
+  aneko: { stars: number; forks: number; language: string };
+  skin: { stars: number; forks: number };
+}
 
 // Animation variants
 const fadeInUp = {
@@ -61,6 +61,44 @@ const CAT_ANIMATIONS: Record<string, { frames: string[]; duration: number }> = {
 export default function Home() {
   const [catState, setCatState] = useState<CatAnimation>("idle");
   const [currentSprite, setCurrentSprite] = useState("mati1");
+  const [githubStats, setGithubStats] = useState<GitHubStats>({
+    aneko: { stars: 0, forks: 0, language: "Kotlin" },
+    skin: { stars: 0, forks: 0 }
+  });
+
+  // Fetch GitHub stats
+  useEffect(() => {
+    const fetchGitHubStats = async () => {
+      try {
+        const [anekoRes, skinRes] = await Promise.all([
+          fetch("https://api.github.com/repos/pass-with-high-score/ANeko"),
+          fetch("https://api.github.com/repos/pass-with-high-score/Aneko-skin")
+        ]);
+
+        if (anekoRes.ok && skinRes.ok) {
+          const anekoData = await anekoRes.json();
+          const skinData = await skinRes.json();
+
+          setGithubStats({
+            aneko: {
+              stars: anekoData.stargazers_count,
+              forks: anekoData.forks_count,
+              language: anekoData.language || "Kotlin"
+            },
+            skin: {
+              stars: skinData.stargazers_count,
+              forks: skinData.forks_count
+            }
+          });
+        }
+      } catch (error) {
+        // Keep default values on error
+        console.error("Failed to fetch GitHub stats:", error);
+      }
+    };
+
+    fetchGitHubStats();
+  }, []);
 
   // Random animation when clicked
   const handleCatClick = () => {
@@ -143,7 +181,7 @@ export default function Home() {
 
               <motion.div className={styles.statsBadges} variants={fadeInUp}>
                 <span className={styles.badge}>
-                  <Star size={14} /> {GITHUB_STATS.aneko.stars} stars
+                  <Star size={14} /> {githubStats.aneko.stars} stars
                 </span>
                 <span className={styles.badge}>
                   <Download size={14} /> 10K+ installs
@@ -265,11 +303,9 @@ export default function Home() {
 
             <motion.div className={styles.screenshotScroll} variants={fadeInUp}>
               {[1, 2, 3, 4].map((num) => (
-                <motion.div
+                <div
                   key={num}
                   className={styles.screenshotItem}
-                  whileHover={{ y: -8, scale: 1.02 }}
-                  transition={{ type: "spring", stiffness: 300 }}
                 >
                   <Image
                     src={`/screenshots/${num}.png`}
@@ -278,6 +314,79 @@ export default function Home() {
                     height={440}
                     className={styles.screenshotImage}
                   />
+                </div>
+              ))}
+            </motion.div>
+          </motion.div>
+        </div>
+      </section>
+
+      {/* Reviews Section */}
+      <section className={styles.reviews}>
+        <div className="container">
+          <motion.div
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, margin: "-100px" }}
+            variants={staggerContainer}
+          >
+            <motion.h2 className="section-title" variants={fadeInUp}>
+              What Users Say
+            </motion.h2>
+            <motion.p className="section-subtitle" variants={fadeInUp}>
+              Real reviews from Google Play
+            </motion.p>
+
+            <motion.div className={styles.reviewGrid} variants={staggerContainer}>
+              {[
+                {
+                  name: "Rosie Newton",
+                  date: "Sep 21, 2025",
+                  text: "Very nostalgic. My husband put this on my phone as a surprise after I was talking about the Neko on my PC in the 90s, now this Neko makes me smile every time I see him run across my phone screen.",
+                  helpful: 7
+                },
+                {
+                  name: "Soméo Whitehead",
+                  date: "Jan 15, 2026",
+                  text: "omg. perfect. open source, material you, intuitive ui, no ads or tracking. and last but not least, so many well-made and adorable skins to choose from"
+                },
+                {
+                  name: "Iek Meng Wu",
+                  date: "Oct 8, 2025",
+                  text: "fantastic app, my dog passed away recently and the Santino skin looks just like him, it's like he is back with me 😭😭"
+                },
+                {
+                  name: "Luna Salem",
+                  date: "Jan 11, 2026",
+                  text: "Great recreation of ANeko. I really hope in the future there's a feature to upload custom graphics/zips for artists like me cuz thats what I really wanted LOL :0)"
+                },
+                {
+                  name: "Eduardo Clemens",
+                  date: "May 31, 2025",
+                  text: "Awesome! I used the old Aneko a long time ago on my PC and I loved it. Now I can have a little pet with me on my phone just like in the old days. It brings back great memories."
+                },
+                {
+                  name: "Chri",
+                  date: "Sep 27, 2025",
+                  text: "This honestly helps me with doom scrolling because I don't want my little guy to see the horrors..."
+                },
+              ].map((review, i) => (
+                <motion.div
+                  key={i}
+                  className={styles.reviewCard}
+                  variants={scaleIn}
+                >
+                  <div className={styles.reviewHeader}>
+                    <div className={styles.reviewAvatar}>
+                      {review.name.charAt(0)}
+                    </div>
+                    <div>
+                      <div className={styles.reviewName}>{review.name}</div>
+                      <div className={styles.reviewDate}>{review.date}</div>
+                    </div>
+                    <div className={styles.reviewStars}>★★★★★</div>
+                  </div>
+                  <p className={styles.reviewText}>{review.text}</p>
                 </motion.div>
               ))}
             </motion.div>
@@ -316,9 +425,9 @@ export default function Home() {
                 </div>
                 <p>The main ANeko Reborn Android app</p>
                 <div className={styles.repoStats}>
-                  <span><Star size={14} /> {GITHUB_STATS.aneko.stars}</span>
-                  <span><GitFork size={14} /> {GITHUB_STATS.aneko.forks}</span>
-                  <span className={styles.langBadge}>{GITHUB_STATS.aneko.language}</span>
+                  <span><Star size={14} /> {githubStats.aneko.stars}</span>
+                  <span><GitFork size={14} /> {githubStats.aneko.forks}</span>
+                  <span className={styles.langBadge}>{githubStats.aneko.language}</span>
                 </div>
               </motion.a>
 
@@ -336,9 +445,9 @@ export default function Home() {
                 </div>
                 <p>Community skin collection for ANeko</p>
                 <div className={styles.repoStats}>
-                  <span><Star size={14} /> {GITHUB_STATS.skin.stars}</span>
-                  <span><GitFork size={14} /> {GITHUB_STATS.skin.forks}</span>
-                  <span className={styles.langBadge}>50+ skins</span>
+                  <span><Star size={14} /> {githubStats.skin.stars}</span>
+                  <span><GitFork size={14} /> {githubStats.skin.forks}</span>
+                  <span className={styles.langBadge}>30+ skins</span>
                 </div>
               </motion.a>
             </motion.div>
@@ -388,7 +497,7 @@ export default function Home() {
               <a href="/privacy">Privacy</a>
             </nav>
             <p className={styles.footerCopy}>
-              © 2024 NQM Innovation Lab · LGPL-2.1 License
+              © 2026 NQM Innovation Lab · LGPL-2.1 License
             </p>
           </div>
         </div>
