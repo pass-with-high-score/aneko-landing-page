@@ -262,7 +262,7 @@ export default function Home() {
               {[
                 { icon: null, catSrc: "/aneko/right1.png", title: "Follows Your Touch", desc: "The cat chases your finger wherever you touch" },
                 { icon: Paintbrush, title: "Material You", desc: "Beautiful modern UI for Android 14+" },
-                { icon: Sparkles, title: "50+ Skins", desc: "Choose from community-made cat skins" },
+                { icon: Sparkles, title: "30+ Skins", desc: "Choose from community-made cat skins" },
                 { icon: Zap, title: "Battery Friendly", desc: "Smooth 60fps with minimal battery usage" },
               ].map((feature, i) => (
                 <motion.div
