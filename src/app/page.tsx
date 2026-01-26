@@ -191,7 +191,7 @@ export default function Home() {
                 </span>
               </motion.div>
 
-              <motion.div className={styles.heroCta} variants={fadeInUp}>
+              <motion.div className={styles.heroCta} variants={fadeInUp} style={{ display: 'grid', gridTemplateColumns: 'repeat(2, auto)', gap: '0.75rem', justifyContent: 'start' }}>
                 <a
                   href="https://play.google.com/store/apps/details?id=org.nqmgaming.aneko"
                   target="_blank"
@@ -218,6 +218,20 @@ export default function Home() {
                 >
                   <Wrench size={18} />
                   Skin Builder
+                </a>
+                <a
+                  href="https://unikorn.vn/p/aneko-reborn?ref=unikorn"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  style={{ display: 'flex', alignItems: 'center' }}
+                >
+                  <Image
+                    src="https://unikorn.vn/api/widgets/badge/aneko-reborn?theme=light"
+                    alt="ANeko Reborn trên Unikorn.vn"
+                    width={210}
+                    height={54}
+                    unoptimized
+                  />
                 </a>
               </motion.div>
             </motion.div>
