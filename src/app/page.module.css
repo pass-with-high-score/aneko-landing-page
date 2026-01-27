@@ -412,6 +412,20 @@
     background: var(--background);
 }
 
+/* Share Skin CTA */
+.shareSkinCta {
+    text-align: center;
+    margin-top: var(--space-2xl);
+    padding-top: var(--space-2xl);
+    border-top: 1px solid var(--border);
+}
+
+.shareSkinCta p {
+    color: var(--text-muted);
+    font-size: 1rem;
+    margin-bottom: var(--space-md);
+}
+
 /* Footer */
 .footer {
     background: var(--text);

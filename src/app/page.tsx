@@ -15,9 +15,11 @@ import {
   Download,
   Users,
   ArrowRight,
-  Wrench
+  Wrench,
+  Upload
 } from "lucide-react";
 import { SiGoogleplay } from "react-icons/si";
+import Link from "next/link";
 
 // GitHub Stats type
 interface GitHubStats {
@@ -464,6 +466,14 @@ export default function Home() {
                   <span className={styles.langBadge}>30+ skins</span>
                 </div>
               </motion.a>
+            </motion.div>
+
+            <motion.div className={styles.shareSkinCta} variants={fadeInUp}>
+              <p>Created your own skin? Share it with the community!</p>
+              <Link href="/share-skin" className="btn btn-primary">
+                <Upload size={18} />
+                Share Your Skin
+              </Link>
             </motion.div>
           </motion.div>
         </div>

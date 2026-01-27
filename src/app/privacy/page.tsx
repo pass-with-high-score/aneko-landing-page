@@ -1,11 +1,44 @@
 import Link from "next/link";
-import { Github, ArrowLeft } from "lucide-react";
+import Image from "next/image";
+import { Github } from "lucide-react";
 import { SiGoogleplay } from "react-icons/si";
 import styles from "./privacy.module.css";
 
 export default function PrivacyPage() {
     return (
         <div className={styles.privacyPage}>
+            {/* Navigation */}
+            <nav className={styles.navbar}>
+                <div className="container">
+                    <div className={styles.navContent}>
+                        <Link href="/" className={styles.navLogo}>
+                            <Image
+                                src="/aneko/icon.png"
+                                alt="ANeko"
+                                width={32}
+                                height={32}
+                                className={styles.catImage}
+                            />
+                            <span>ANeko Reborn</span>
+                        </Link>
+                        <div className={styles.navLinks}>
+                            <Link href="/" className={styles.navLink}>Home</Link>
+                            <Link href="/share-skin" className={styles.navLink}>Share Skin</Link>
+                            <Link href="/privacy" className={`${styles.navLink} ${styles.active}`}>Privacy</Link>
+                            <a
+                                href="https://github.com/pass-with-high-score/ANeko"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className={styles.navLink}
+                            >
+                                <Github size={18} />
+                                GitHub
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </nav>
+
             <header className={styles.header}>
                 <h1>ANeko Privacy Policy</h1>
                 <p className={styles.lastUpdated}>Last Updated: January 17, 2026</p>
@@ -33,10 +66,6 @@ export default function PrivacyPage() {
             </header>
 
             <main className={styles.content}>
-                <Link href="/" className={styles.backLink}>
-                    <ArrowLeft size={18} />
-                    Back to Home
-                </Link>
 
                 <section className={styles.section}>
                     <h2>1. What We Do Not Collect</h2>
