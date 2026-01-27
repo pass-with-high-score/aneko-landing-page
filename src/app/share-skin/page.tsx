@@ -2,7 +2,6 @@
 
 import { useState, useRef } from "react";
 import Image from "next/image";
-import Link from "next/link";
 import { motion } from "framer-motion";
 import {
     Send,
@@ -11,9 +10,9 @@ import {
     Upload,
     Link as LinkIcon,
     X,
-    Github
 } from "lucide-react";
 import styles from "./page.module.css";
+import Navigation from "@/components/Navigation";
 
 // Animation variants
 const fadeInUp = {
@@ -186,35 +185,7 @@ export default function ShareSkinPage() {
     return (
         <div className={styles.page}>
             {/* Navigation */}
-            <nav className={styles.navbar}>
-                <div className="container">
-                    <div className={styles.navContent}>
-                        <Link href="/" className={styles.navLogo}>
-                            <Image
-                                src="/aneko/icon.png"
-                                alt="ANeko"
-                                width={32}
-                                height={32}
-                                className={styles.catImage}
-                            />
-                            <span>ANeko Reborn</span>
-                        </Link>
-                        <div className={styles.navLinks}>
-                            <Link href="/" className={styles.navLink}>Home</Link>
-                            <Link href="/share-skin" className={`${styles.navLink} ${styles.active}`}>Share Skin</Link>
-                            <a
-                                href="https://github.com/pass-with-high-score/ANeko"
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                className={styles.navLink}
-                            >
-                                <Github size={18} />
-                                GitHub
-                            </a>
-                        </div>
-                    </div>
-                </div>
-            </nav>
+            <Navigation activeRoute="/share-skin" />
 
             {/* Hero */}
             <section className={styles.hero}>

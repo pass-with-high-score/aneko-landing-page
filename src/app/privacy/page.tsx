@@ -1,43 +1,13 @@
-import Link from "next/link";
-import Image from "next/image";
 import { Github } from "lucide-react";
 import { SiGoogleplay } from "react-icons/si";
 import styles from "./privacy.module.css";
+import Navigation from "@/components/Navigation";
 
 export default function PrivacyPage() {
     return (
         <div className={styles.privacyPage}>
             {/* Navigation */}
-            <nav className={styles.navbar}>
-                <div className="container">
-                    <div className={styles.navContent}>
-                        <Link href="/" className={styles.navLogo}>
-                            <Image
-                                src="/aneko/icon.png"
-                                alt="ANeko"
-                                width={32}
-                                height={32}
-                                className={styles.catImage}
-                            />
-                            <span>ANeko Reborn</span>
-                        </Link>
-                        <div className={styles.navLinks}>
-                            <Link href="/" className={styles.navLink}>Home</Link>
-                            <Link href="/share-skin" className={styles.navLink}>Share Skin</Link>
-                            <Link href="/privacy" className={`${styles.navLink} ${styles.active}`}>Privacy</Link>
-                            <a
-                                href="https://github.com/pass-with-high-score/ANeko"
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                className={styles.navLink}
-                            >
-                                <Github size={18} />
-                                GitHub
-                            </a>
-                        </div>
-                    </div>
-                </div>
-            </nav>
+            <Navigation activeRoute="/privacy" />
 
             <header className={styles.header}>
                 <h1>ANeko Privacy Policy</h1>
