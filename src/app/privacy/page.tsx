@@ -2,6 +2,7 @@ import { Github } from "lucide-react";
 import { SiGoogleplay } from "react-icons/si";
 import styles from "./privacy.module.css";
 import Navigation from "@/components/Navigation";
+import Footer from "@/components/Footer";
 
 export default function PrivacyPage() {
     return (
@@ -138,9 +139,7 @@ export default function PrivacyPage() {
                 </section>
             </main>
 
-            <footer className={styles.footer}>
-                <p>© 2026 PWHS. All rights reserved.</p>
-            </footer>
+            <Footer />
         </div>
     );
 }

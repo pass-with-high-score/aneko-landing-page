@@ -13,6 +13,7 @@ import {
 } from "lucide-react";
 import styles from "./page.module.css";
 import Navigation from "@/components/Navigation";
+import Footer from "@/components/Footer";
 
 // Animation variants
 const fadeInUp = {
@@ -391,6 +392,8 @@ export default function ShareSkinPage() {
                     </motion.div>
                 </div>
             </section>
+
+            <Footer />
         </div>
     );
 }
