@@ -32,6 +32,12 @@ export default function Navigation({ activeRoute }: NavigationProps) {
                             Home
                         </Link>
                         <Link
+                            href="/explore"
+                            className={`${styles.navLink} ${activeRoute === "/explore" ? styles.active : ""}`}
+                        >
+                            Explore
+                        </Link>
+                        <Link
                             href="/share-skin"
                             className={`${styles.navLink} ${activeRoute === "/share-skin" ? styles.active : ""}`}
                         >

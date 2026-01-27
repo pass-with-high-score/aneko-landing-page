@@ -17,6 +17,7 @@ export default function Footer() {
                         <span>ANeko Reborn</span>
                     </div>
                     <nav className={styles.footerNav}>
+                        <a href="/explore">Explore</a>
                         <a href="https://github.com/pass-with-high-score/ANeko" target="_blank" rel="noopener noreferrer">GitHub</a>
                         <a href="https://t.me/aneko_community" target="_blank" rel="noopener noreferrer">Telegram</a>
                         <a href="/privacy">Privacy</a>
