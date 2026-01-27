@@ -19,6 +19,11 @@ const isValidUrl = (url: string): boolean => {
     }
 };
 
+// Escape special characters for Telegram MarkdownV2
+const escapeMarkdown = (text: string): string => {
+    return text.replace(/[_*[\]()~`>#+=|{}.!-]/g, '\\$&');
+};
+
 const ALLOWED_EXTENSIONS = ['.zip', '.rar', '.7z'];
 const MAX_FILE_SIZE = 20 * 1024 * 1024; // 20MB
 
@@ -97,20 +102,27 @@ export async function POST(request: NextRequest) {
             );
         }
 
+        // Escape user input for MarkdownV2
+        const safeName = escapeMarkdown(name);
+        const safeEmail = escapeMarkdown(email);
+        const safeTelegram = escapeMarkdown(telegram);
+        const safeLink = skinLink ? escapeMarkdown(skinLink) : '';
+
         // If file is uploaded, send it to Telegram
         if (skinFile && skinFile.size > 0) {
+            const safeFileName = escapeMarkdown(skinFile.name);
             const telegramFormData = new FormData();
             telegramFormData.append('chat_id', chatId);
             telegramFormData.append('document', skinFile, skinFile.name);
             telegramFormData.append(
                 'caption',
                 `🎨 *New Skin Submission*\n\n` +
-                `👤 *Name:* ${name}\n` +
-                `📧 *Email:* ${email}\n` +
-                `💬 *Telegram:* @${telegram}\n` +
-                `📁 *File:* ${skinFile.name}`
+                `👤 *Name:* ${safeName}\n` +
+                `📧 *Email:* ${safeEmail}\n` +
+                `💬 *Telegram:* @${safeTelegram}\n` +
+                `📁 *File:* ${safeFileName}`
             );
-            telegramFormData.append('parse_mode', 'Markdown');
+            telegramFormData.append('parse_mode', 'MarkdownV2');
 
             const response = await fetch(
                 `https://api.telegram.org/bot${botToken}/sendDocument`,
@@ -132,10 +144,10 @@ export async function POST(request: NextRequest) {
             // Send text message with link
             const message =
                 `🎨 *New Skin Submission*\n\n` +
-                `👤 *Name:* ${name}\n` +
-                `📧 *Email:* ${email}\n` +
-                `💬 *Telegram:* @${telegram}\n` +
-                (skinLink ? `🔗 *Download Link:* ${skinLink}` : '❌ No file or link provided');
+                `👤 *Name:* ${safeName}\n` +
+                `📧 *Email:* ${safeEmail}\n` +
+                `💬 *Telegram:* @${safeTelegram}\n` +
+                (skinLink ? `🔗 *Download Link:* ${safeLink}` : '❌ No file or link provided');
 
             const response = await fetch(
                 `https://api.telegram.org/bot${botToken}/sendMessage`,
@@ -145,7 +157,7 @@ export async function POST(request: NextRequest) {
                     body: JSON.stringify({
                         chat_id: chatId,
                         text: message,
-                        parse_mode: 'Markdown',
+                        parse_mode: 'MarkdownV2',
                     }),
                 }
             );
@@ -169,3 +181,4 @@ export async function POST(request: NextRequest) {
         );
     }
 }
+
