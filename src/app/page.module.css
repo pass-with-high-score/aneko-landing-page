@@ -102,10 +102,21 @@
 }
 
 .heroCta {
-    display: flex;
-    flex-wrap: wrap;
+    display: grid;
+    grid-template-columns: repeat(2, auto);
     gap: var(--space-md);
     justify-content: center;
+}
+
+.unikornBadge {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.unikornBadge img {
+    max-width: 100%;
+    height: auto;
 }
 
 @media (min-width: 900px) {
@@ -488,13 +499,19 @@
     }
 
     .heroCta {
-        flex-direction: column;
-        align-items: center;
+        grid-template-columns: repeat(2, auto);
+        gap: var(--space-sm);
+        justify-content: center;
     }
 
     .heroCta .btn {
-        width: 100%;
-        max-width: 260px;
+        padding: 10px 16px;
+        font-size: 0.85rem;
+    }
+
+    .unikornBadge img {
+        max-width: 160px;
+        height: auto;
     }
 
     .ctaContent h2 {

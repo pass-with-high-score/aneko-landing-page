@@ -26,6 +26,7 @@ import Footer from "@/components/Footer";
 interface GitHubStats {
   aneko: { stars: number; forks: number; language: string };
   skin: { stars: number; forks: number };
+  landing: { stars: number; forks: number; language: string };
 }
 
 // Animation variants
@@ -66,21 +67,24 @@ export default function Home() {
   const [currentSprite, setCurrentSprite] = useState("mati1");
   const [githubStats, setGithubStats] = useState<GitHubStats>({
     aneko: { stars: 0, forks: 0, language: "Kotlin" },
-    skin: { stars: 0, forks: 0 }
+    skin: { stars: 0, forks: 0 },
+    landing: { stars: 0, forks: 0, language: "TypeScript" }
   });
 
   // Fetch GitHub stats
   useEffect(() => {
     const fetchGitHubStats = async () => {
       try {
-        const [anekoRes, skinRes] = await Promise.all([
+        const [anekoRes, skinRes, landingRes] = await Promise.all([
           fetch("https://api.github.com/repos/pass-with-high-score/ANeko"),
-          fetch("https://api.github.com/repos/pass-with-high-score/Aneko-skin")
+          fetch("https://api.github.com/repos/pass-with-high-score/Aneko-skin"),
+          fetch("https://api.github.com/repos/pass-with-high-score/aneko-landing-page")
         ]);
 
         if (anekoRes.ok && skinRes.ok) {
           const anekoData = await anekoRes.json();
           const skinData = await skinRes.json();
+          const landingData = landingRes.ok ? await landingRes.json() : null;
 
           setGithubStats({
             aneko: {
@@ -91,6 +95,11 @@ export default function Home() {
             skin: {
               stars: skinData.stargazers_count,
               forks: skinData.forks_count
+            },
+            landing: {
+              stars: landingData?.stargazers_count || 0,
+              forks: landingData?.forks_count || 0,
+              language: landingData?.language || "TypeScript"
             }
           });
         }
@@ -194,7 +203,7 @@ export default function Home() {
                 </span>
               </motion.div>
 
-              <motion.div className={styles.heroCta} variants={fadeInUp} style={{ display: 'grid', gridTemplateColumns: 'repeat(2, auto)', gap: '0.75rem', justifyContent: 'start' }}>
+              <motion.div className={styles.heroCta} variants={fadeInUp}>
                 <a
                   href="https://play.google.com/store/apps/details?id=org.nqmgaming.aneko"
                   target="_blank"
@@ -226,7 +235,7 @@ export default function Home() {
                   href="https://unikorn.vn/p/aneko-reborn?ref=unikorn"
                   target="_blank"
                   rel="noopener noreferrer"
-                  style={{ display: 'flex', alignItems: 'center' }}
+                  className={styles.unikornBadge}
                 >
                   <Image
                     src="https://unikorn.vn/api/widgets/badge/aneko-reborn?theme=light"
@@ -465,6 +474,26 @@ export default function Home() {
                   <span><Star size={14} /> {githubStats.skin.stars}</span>
                   <span><GitFork size={14} /> {githubStats.skin.forks}</span>
                   <span className={styles.langBadge}>30+ skins</span>
+                </div>
+              </motion.a>
+
+              <motion.a
+                href="https://github.com/pass-with-high-score/aneko-landing-page"
+                target="_blank"
+                rel="noopener noreferrer"
+                className={styles.repoCard}
+                variants={scaleIn}
+                whileHover={{ y: -4 }}
+              >
+                <div className={styles.repoHeader}>
+                  <Github size={20} />
+                  <span>pass-with-high-score/aneko-landing-page</span>
+                </div>
+                <p>This website - ANeko landing page</p>
+                <div className={styles.repoStats}>
+                  <span><Star size={14} /> {githubStats.landing.stars}</span>
+                  <span><GitFork size={14} /> {githubStats.landing.forks}</span>
+                  <span className={styles.langBadge}>{githubStats.landing.language}</span>
                 </div>
               </motion.a>
             </motion.div>

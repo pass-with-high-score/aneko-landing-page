@@ -13,6 +13,7 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
+    position: relative;
 }
 
 .navLogo {
@@ -24,6 +25,7 @@
     font-size: 1.1rem;
     color: var(--text);
     transition: color 0.2s;
+    z-index: 102;
 }
 
 .navLogo:hover {
@@ -34,6 +36,27 @@
     image-rendering: pixelated;
 }
 
+/* Menu button - hidden on desktop */
+.menuButton {
+    display: none;
+    align-items: center;
+    justify-content: center;
+    width: 44px;
+    height: 44px;
+    padding: 0;
+    border: none;
+    background: transparent;
+    color: var(--text);
+    cursor: pointer;
+    z-index: 102;
+    transition: color 0.2s;
+}
+
+.menuButton:hover {
+    color: var(--primary);
+}
+
+/* Nav links - horizontal on desktop */
 .navLinks {
     display: flex;
     align-items: center;
@@ -58,17 +81,87 @@
     color: var(--primary);
 }
 
-/* Responsive */
+/* Overlay - hidden on desktop */
+.overlay {
+    display: none;
+}
+
+/* Mobile styles */
 @media (max-width: 768px) {
     .navLogo span {
-        display: none;
+        display: block;
     }
 
+    /* Show menu button on mobile */
+    .menuButton {
+        display: flex;
+    }
+
+    /* Nav links - slide-in panel on mobile */
     .navLinks {
-        gap: var(--space-md);
+        position: fixed;
+        top: 0;
+        right: -100%;
+        width: 280px;
+        height: 100vh;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0;
+        padding: 80px var(--space-xl) var(--space-xl);
+        background: var(--surface);
+        box-shadow: -4px 0 20px rgba(0, 0, 0, 0.1);
+        transition: right 0.3s ease;
+        z-index: 101;
+        overflow-y: auto;
+    }
+
+    .navLinksOpen {
+        right: 0;
     }
 
     .navLink {
-        font-size: 0.85rem;
+        width: 100%;
+        padding: var(--space-md) 0;
+        font-size: 1.1rem;
+        border-bottom: 1px solid var(--border);
+    }
+
+    .navLink:last-child {
+        border-bottom: none;
+    }
+
+    /* Overlay for mobile menu */
+    .overlay {
+        display: block;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100vh;
+        background: rgba(0, 0, 0, 0.4);
+        z-index: 100;
+        animation: fadeIn 0.2s ease;
+    }
+
+    @keyframes fadeIn {
+        from {
+            opacity: 0;
+        }
+
+        to {
+            opacity: 1;
+        }
+    }
+}
+
+/* Smaller mobile adjustments */
+@media (max-width: 480px) {
+    .navLinks {
+        width: 100%;
+        right: -100%;
+    }
+
+    .navLinksOpen {
+        right: 0;
     }
 }
